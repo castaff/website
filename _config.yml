@@ -22,8 +22,8 @@ title: Celia Stafford
 email: celiastaffordnc@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
   Welcome to my personal website.
-baseurl: "/" # the subpath of your site, e.g. /blog
-url: "https://castaff.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+# baseurl: "/" # the subpath of your site, e.g. /blog
+url: "www.celiastafford.com" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: celiastafford_
 github_username:  jekyll
 
