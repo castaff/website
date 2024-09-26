@@ -37,6 +37,9 @@ jobs:
       - name: Install NPM dependencies
         run: |
           npm install
+        name: Install Bundler
+        run:
+          sudo apt update && apt install ~ruby_bundler
       - name: Build with Jekyll
         uses: limjh16/jekyll-action-ts@v2
         with:
