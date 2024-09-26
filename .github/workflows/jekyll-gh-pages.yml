@@ -38,9 +38,10 @@ jobs:
         run: |
           npm install
       - name: Build with Jekyll
-        uses: limjh16/jekyll-action-tx@v2
+        uses: actions/jekyll-build-pages@v1
         with:
-          enable_cache: true
+          source: ./
+          destination: ./_site
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
 
