@@ -1,17 +1,272 @@
----
-layout: default
-title: About
----
-<div class="mx-auto grid max-w-7xl grid-cols-1 gap-x-8 gap-y-20 px-6 lg:px-8 xl:grid-cols-5">
-  <div class="max-w-2xl xl:col-span-2">
-    <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Celia Stafford</h2>
-    <p class="text-base leading-7 text-gray-600">MPH</p>
-    <p class="mt-6 text-lg leading-8 text-gray-600">I am a 4th year PhD Candidate at Harvard Business School in the Healthcare Management program. When not working you can find me hanging out with the nearest animal, be it puppy, snake, or cow. I spend most of my time thinking about the things in peoples jobs that drive them nuts. Right now that means the way organizations collect data and use databases, and the quality of that data when employees aren't motivated to collect it. Generally, I am interested in using System Dynamics methods (a methodological framework to understand, and manage change by modeling the relationships between all parts of a system to see how those relationships influence the behavior of the system over time) to address points of friction that cause people to hate their jobs, mentally check out, and even quit.</p>
-  </div>
-  <ul role="list" class="-mt-12 space-y-12 divide-y divide-gray-200 xl:col-span-3">
-    <li class="flex flex-col gap-10 pt-12 sm:flex-row">
-      <img class="aspect-[4/5] w-64 flex-none rounded-2xl object-cover max-h-80" src="./assets/profile.jpg" alt="">
-          </li>
-    <!-- More people... -->
-  </ul>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Celia Stafford</title>
+  <meta name="description" content="Celia Stafford, PhD candidate in Health Care Management at Harvard Business School, studying information systems, administrative burden, and expert work.">
+  <!-- One shared stylesheet, relative path so it resolves at any base URL. -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body id="top">
+
+  <!-- ===================== NAVIGATION (repeated verbatim on every page,
+       though here there is only one) ===================== -->
+  <header class="site-nav">
+    <a class="brand" href="#top">Celia Stafford</a>
+    <a href="#research">Research</a>
+    <a href="#teaching">Teaching</a>
+    <a href="#service">Service</a>
+    <a href="#personal">Personal</a>
+    <!-- CV points outward to a Google Drive PDF; replace the href when ready. -->
+    <a href="https://drive.google.com/YOUR-CV-LINK-HERE" target="_blank" rel="noopener">CV</a>
+  </header>
+
+  <main class="wrap">
+
+    <!-- ===================== HERO / HOME ===================== -->
+    <section class="hero">
+      <div class="hero__body prose">
+        <!-- Greeting fills with the live weekday; "Hello!" if scripting is off. -->
+        <h1 class="greeting">Happy <span id="weekday">Hello</span>!</h1>
+
+        <p>I am a PhD candidate in Harvard Business School&rsquo;s program in
+        Health Care Management, where I am advised by Professors Amy Edmondson,
+        Ryan Buell, and Nelson Repenning (of MIT Sloan).</p>
+
+        <p>I am interested in the parts of people&rsquo;s jobs that drive them
+        nuts. My research focuses on how organizations design, maintain, and
+        automate the information systems that make work visible, accountable,
+        and coordinated. I study how these systems &mdash; and the AI tools we
+        increasingly use to manage them &mdash; reshape professional judgment,
+        administrative burden, and the meaning of expert work. To this end, I
+        concentrate on:</p>
+
+        <ol>
+          <li>Explaining how organizational records lose value for the very
+          workers whose authorship and use make them meaningful.</li>
+          <li>Theorizing the organizational roots of administrative and
+          documentation burden.</li>
+          <li>Identifying when technologies that relieve burden also erode
+          expertise.</li>
+        </ol>
+
+        <p>Before HBS, I worked at the FDA studying opioid-use policy, held
+        finance and operations roles at several contract research organizations,
+        and managed the internal database system for a cybersecurity firm
+        &mdash; the kind of information infrastructure I now study. I earned a
+        Bachelor&rsquo;s in Mathematics and Economics from Emory University and a
+        Master&rsquo;s in Biostatistics from the University of North Carolina at
+        Chapel Hill.</p>
+
+        <p class="contact">
+          <a href="https://scholar.google.com/citations?user=KvsNz0sAAAAJ&amp;hl=en">Google Scholar</a> &nbsp;|&nbsp;
+          <a href="https://www.linkedin.com/in/celia-stafford/">LinkedIn</a> &nbsp;|&nbsp;
+          <a href="mailto:cstafford@hbs.edu">Email</a>
+        </p>
+      </div>
+
+      <figure class="hero__figure">
+        <!-- Drop your photo at assets/headshot.jpg; a tinted box shows until then. -->
+        <img src="assets/headshot.jpg" alt="Celia Stafford">
+      </figure>
+    </section>
+
+    <!-- ===================== RESEARCH ===================== -->
+    <section class="section" id="research">
+      <h2>Research</h2>
+
+      <h3>Publications</h3>
+      <ul class="reflist">
+        <li>Nikhil R. Sahni, Brooke Istvan, <strong>Celia Stafford</strong>,
+          David Cutler.
+          <a href="https://doi.org/10.1093/haschl/qxae096">Perceptions of prior
+          authorization burden and solutions</a>.
+          <em>Health Affairs Scholar</em>, 2(9), 2024.</li>
+
+        <li><strong>Celia Stafford</strong>, Wesley J. Marrero, Rebecca B.
+          Naumann, Kristen Hassmiller Lich, Sarah Wakeman, Mohammad S. Jalali.
+          <a href="https://doi.org/10.1016/j.drugalcdep.2022.109507">Identifying
+          key risk factors for premature discontinuation of opioid use disorder
+          treatment in the United States: a predictive modeling study</a>.
+          <em>Drug and Alcohol Dependence</em>, 237, 2022.</li>
+
+        <li>Tse Yang Lim, Erin J. Stringfellow, <strong>Celia Stafford</strong>,
+          Catherine DiGennaro, Jack B. Homer, Wayne Wakeland, Sara L. Eggers,
+          Reza Kazemi, Lukas Glos, Emily G. Ewing, Calvin B. Bannister, Keith
+          Humphreys, Douglas C. Throckmorton, Mohammad S. Jalali.
+          <a href="https://doi.org/10.1073/pnas.2115714119">Modeling the
+          evolution of the US opioid crisis for national policy development</a>.
+          <em>Proceedings of the National Academy of Sciences</em>, 119(23),
+          2022.</li>
+
+        <li>Erin J. Stringfellow, Tse Yang Lim, Keith Humphreys, Catherine
+          DiGennaro, <strong>Celia Stafford</strong>, Elizabeth Beaulieu, Jack
+          Homer, Wayne Wakeland, Benjamin Bearnot, R. Kathryn McHugh, John Kelly,
+          Lukas Glos, Sara L. Eggers, Reza Kazemi, Mohammad S. Jalali.
+          <a href="https://doi.org/10.1126/sciadv.abm8147">Reducing opioid use
+          disorder and overdose deaths in the United States: a dynamic modeling
+          analysis</a>. <em>Science Advances</em>, 8(25), 2022.</li>
+
+        <li>Mohammad S. Jalali, Emily Ewing, Calvin B. Bannister, Lukas Glos,
+          Sara Eggers, Tse Yang Lim, Erin Stringfellow, <strong>Celia
+          Stafford</strong>, Rosalie Liccardo Pacula, Hawre Jalal, Reza
+          Kazemi-Tabriz.
+          <a href="https://doi.org/10.1016/j.amepre.2020.08.017">Data needs in
+          opioid systems modeling: challenges and future directions</a>.
+          <em>American Journal of Preventive Medicine</em>, 60(2), e95&ndash;e105,
+          2021.</li>
+      </ul>
+
+      <h3>Conference Presentations</h3>
+      <ul class="reflist">
+        <li><strong>Stafford, C.</strong> (presenter). When changing the cost of
+          data creation undermines their value. INFORMS Healthcare, Raleigh, NC,
+          2026.</li>
+
+        <li><strong>Stafford, C.</strong> (presenter). Tech burden and why
+          well-intentioned systems become unbearable: the case of electronic
+          health records and their cascading impact on clinicians and care
+          quality. International System Dynamics Conference, 2024.</li>
+
+        <li><strong>Stafford, C.</strong> (presenter), et al. Predictors of
+          premature discontinuation of opioid use disorder treatment in the
+          United States. INFORMS Healthcare (held virtually), 2021.</li>
+
+        <li>Stringfellow, E. (presenter), Lim, T. Y., <strong>Stafford, C.</strong>,
+          DiGennaro, C., Homer, J., Wakeland, W., Jalali, M. S. Reducing opioid
+          use disorder and overdose in the United States: policy analysis. 39th
+          International Conference of the System Dynamics Society, Chicago,
+          Illinois (held virtually), 2021.</li>
+
+        <li>Lim, T. Y. (presenter), Stringfellow, E., <strong>Stafford, C.</strong>,
+          DiGennaro, C., Homer, J., Wakeland, W., Glos, L., Kazemi-Tabriz, R.,
+          Jalali, M. S. Reducing opioid use disorder and overdose in the United
+          States: model development and estimation. 39th International Conference
+          of the System Dynamics Society, Chicago, Illinois (held virtually),
+          2021.</li>
+
+        <li>Lim, T. Y. (presenter), Stringfellow, E., <strong>Stafford, C.</strong>,
+          DiGennaro, C., Beaulieu, E., Ewing, E., Glos, L., Kazemi-Tabriz, R.,
+          Jalali, M. S. Modeling the opioid crisis to support national policy
+          development. 38th International Conference of the System Dynamics
+          Society, Bergen, Norway (held virtually), 2020.</li>
+      </ul>
+    </section>
+
+    <!-- ===================== TEACHING ===================== -->
+    <section class="section" id="teaching">
+      <h2>Teaching</h2>
+
+      <h3>Courses</h3>
+      <ul class="reflist">
+        <li>MIT Sloan 15.873, System Dynamics for Business and Policy &mdash;
+          Teaching Assistant, Fall 2022, Spring 2023, Fall 2023.</li>
+        <li>MIT Sloan 15.736, Introduction to System Dynamics (Executive MBA)
+          &mdash; Teaching Assistant, Summer 2022, Summer 2023.</li>
+        <li>Harvard Business School, Transforming Healthcare Delivery &mdash;
+          Teaching Assistant, Spring 2022, Spring 2023.</li>
+      </ul>
+
+      <p>I have also facilitated the Beer Game more than ten times alongside the
+      system dynamics faculty (Nelson Repenning, John Sterman, Hazhir Rahmandad,
+      and Brad Morrison), taught extensively in the MIT Sloan Executive Education
+      program, and served as a teaching assistant, with Hazhir Rahmandad, for the
+      Asia School of Business course in system dynamics.</p>
+
+      <h3>What students say</h3>
+
+      <blockquote class="quote">
+        <p>I have taught cancer medicine and blood disorders to over 15
+        generations of hematology/oncology fellows at Boston University and
+        Tufts&hellip; I can unequivocally attest that <em>Celia is in a category
+        of her own</em>. Celia is everything a student would want to benefit
+        from: uniquely approachable, uniquely effective in communicating the
+        material to be taught, and very clearly enjoying doing so. Celia is not a
+        gifted teacher: she is a gifted person, and she gives it all in coaching
+        students&hellip; she is definitely &mdash; and without a moment of doubt
+        &mdash; the person I&rsquo;d go back to for guidance were I to have a
+        question in System Dynamics&hellip; Please, don&rsquo;t miss the
+        opportunity to interact with her.</p>
+        <span class="attr">Student, 15.736 Introduction to System Dynamics, 2023</span>
+      </blockquote>
+
+      <blockquote class="quote">
+        <p>Celia was more than a masterful TA; she was the instructor who made
+        system dynamics and a deeper understanding of it come alive for so many
+        students in the class, especially me. When any tool or topic in the
+        discipline got tricky, Celia was uniquely capable of distilling the issue
+        into comprehensible language. Her presence was invaluable to our
+        experience, and I know many of my classmates would not have loved system
+        dynamics as much as we do now without her.</p>
+        <span class="attr">Student, 15.736 Introduction to System Dynamics, 2023</span>
+      </blockquote>
+
+      <blockquote class="quote">
+        <p>Celia is so patient. She took the time to understand where my gap in
+        understanding was, then gently nudged me to piece together the right
+        parts in the right order to get to the conclusion. She never told me an
+        answer (I did ask), but really focused on developing my deeper
+        understanding of system dynamics in a way that made sense to me.</p>
+        <span class="attr">Student, 15.736 Introduction to System Dynamics, 2023</span>
+      </blockquote>
+    </section>
+
+    <!-- ===================== SERVICE ===================== -->
+    <section class="section" id="service">
+      <h2>Service</h2>
+      <ul class="reflist">
+        <li>Organizer, Student Colloquium, System Dynamics Society &mdash; over
+          100 attendees in person and online, 2024.</li>
+        <li>Organizer, doctoral-program social events, Harvard Business School
+          and MIT.</li>
+      </ul>
+    </section>
+
+    <!-- ===================== PERSONAL ===================== -->
+    <section class="section" id="personal">
+      <h2>Beyond my research&hellip;</h2>
+
+      <p>My parents keep a farm with cows, goats, and bees, and some of my
+      favorite days are the ones I spend working on it. I grew up around animals
+      and around work done outdoors and by hand, and I&rsquo;ve never lost my
+      fondness for either.</p>
+
+      <p>More than anything, though, I care about community. I have a habit of
+      collecting people, a little like Pok&eacute;mon, from every walk of life
+      and line of work. All summer I host picnics on the Esplanade that draw
+      anywhere from five to twenty-five of them: boat captains and Patriots
+      cheerleaders, the steward of Laborers&rsquo; Local 151, doctors, lawyers,
+      and fellow PhDs.
+      Everyone is welcome. I&rsquo;ve also served as a resident advisor for my
+      graduate house on campus. I tend to say yes, and saying
+      yes has a way of carrying me somewhere I didn&rsquo;t expect.</p>
+
+      <!-- Drop your photos at assets/farm.jpg and assets/picnic.jpg. -->
+      <div class="photos">
+        <figure>
+          <img src="assets/farm.jpg" alt="My parents' farm">
+          <figcaption>My parents&rsquo; farm.</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/picnic.jpg" alt="A summer picnic on the Esplanade">
+          <figcaption>A summer picnic on the Esplanade.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      &copy; <span id="year">2026</span> Celia Stafford
+    </footer>
+
+  </main>
+
+  <!-- Tiny, dependency-free script: fills the weekday and the footer year. -->
+  <script>
+    document.getElementById("weekday").textContent =
+      new Date().toLocaleDateString("en-US", { weekday: "long" });
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+
+</body>
+</html>

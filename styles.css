@@ -1,0 +1,286 @@
+/* =========================================================================
+   styles.css — the single source of truth for the whole site.
+   Structure: (1) tokens  (2) reset  (3) base  (4) layout/nav
+              (5) hero  (6) sections  (7) footer  (8) responsive + a11y
+   To restyle the site, you almost always edit only the TOKENS in section 1.
+   ========================================================================= */
+
+/* -------------------------------------------------------------------------
+   1. DESIGN TOKENS
+   These are the dials. Everything below REFERENCES them and never hard-codes
+   a colour or size. Change the palette here once and it propagates everywhere
+   — e.g. your "slate blue not purple" lives entirely in --color-bg.
+   ------------------------------------------------------------------------- */
+:root {
+  /* Palette — a soft, desaturated slate-blue wash, cool near-black ink */
+  --color-bg:        #dce3ee;   /* light slate blue — the page wash        */
+  --color-surface:   #eef1f7;   /* faint panel tint (headshot frame, etc.) */
+  --color-ink:       #1f2733;   /* body text — near-black with a cool cast */
+  --color-muted:     #55606f;   /* secondary text, captions                */
+  --color-link:      #3a5878;   /* links — a deeper slate, harmonised      */
+  --color-link-hover:#22405f;   /* link on hover/focus                     */
+  --color-rule:      #c1cad9;   /* hairline dividers                       */
+
+  /* Type — a scholarly serif for reading, a clean sans for nav/labels.
+     Both are system stacks: zero network cost, no flash of unstyled text.
+     To adopt a webfont later: add one <link> in the HTML, then swap the
+     first name in the relevant stack below. Nothing else changes. */
+  --font-serif: Georgia, "Iowan Old Style", "Times New Roman", serif;
+  --font-sans:  system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+
+  /* Type scale — a modest, deliberate progression (~1.2 ratio) */
+  --size-xs:   0.82rem;
+  --size-sm:   0.92rem;
+  --size-base: 1.05rem;
+  --size-lg:   1.3rem;
+  --size-xl:   1.9rem;
+
+  /* Spacing rhythm — one unit, its multiples used throughout */
+  --step:      1.5rem;
+
+  /* Layout — the "measure": the max line length for comfortable reading */
+  --measure:   40rem;
+  --nav-h:     3.5rem;   /* nav height; also the anchor offset (see §6) */
+}
+
+/* -------------------------------------------------------------------------
+   2. MICRO-RESET
+   Neutralises the browser's default styles so they don't fight our rules.
+   border-box makes width include padding — far more predictable maths.
+   ------------------------------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; }
+
+/* -------------------------------------------------------------------------
+   3. BASE
+   ------------------------------------------------------------------------- */
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-serif);
+  font-size: var(--size-base);
+  line-height: 1.65;               /* generous leading aids long-form reading */
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+a {
+  color: var(--color-link);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;   /* underline drawn only on hover: */
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+a:hover, a:focus-visible {
+  color: var(--color-link-hover);
+  border-bottom-color: currentColor;      /* subtle, deliberate underline    */
+}
+
+h1, h2 { font-weight: 600; line-height: 1.2; }
+
+/* -------------------------------------------------------------------------
+   4. LAYOUT + NAVIGATION
+   The nav is STICKY. Rationale: on a single-page site the whole point of the
+   section links is to jump around; if the nav scrolled away it would be
+   reachable only from the very top. Sticky keeps it perpetually usable.
+   ------------------------------------------------------------------------- */
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+  gap: var(--step);
+  padding: 0 var(--step);
+  background: var(--color-bg);            /* same wash → nav "belongs" to page */
+  border-bottom: 1px solid var(--color-rule);
+  font-family: var(--font-sans);
+  font-size: var(--size-sm);
+}
+.site-nav .brand {
+  font-weight: 600;
+  margin-right: auto;                     /* pushes the section links to the right */
+  border-bottom: none;
+}
+.site-nav a { color: var(--color-ink); border-bottom: none; }
+.site-nav a:hover, .site-nav a:focus-visible { color: var(--color-link-hover); }
+
+/* The reading column: centred, capped at the measure. */
+.wrap {
+  max-width: var(--measure);
+  margin-inline: auto;
+  padding: calc(var(--step) * 2) var(--step);
+}
+
+/* -------------------------------------------------------------------------
+   5. HERO
+   Intro prose beside a modest headshot on wide screens; stacked on narrow.
+   ------------------------------------------------------------------------- */
+.hero { display: flex; gap: calc(var(--step) * 1.5); align-items: flex-start; }
+.hero__body { flex: 1 1 auto; }
+.hero__figure { flex: 0 0 11rem; margin-top: 0.4rem; }
+.hero__figure img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  display: block;
+  background: var(--color-surface);       /* graceful placeholder if the file is absent */
+  border: 1px solid var(--color-rule);
+}
+.hero__figure figcaption {
+  font-family: var(--font-sans);
+  font-size: var(--size-xs);
+  color: var(--color-muted);
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+.greeting { font-size: var(--size-xl); margin-bottom: var(--step); }
+
+/* Prose rhythm: space paragraphs and the list by the rhythm unit. */
+.prose > p { margin-bottom: var(--step); }
+.prose ol {
+  margin: 0 0 var(--step);
+  padding-left: 1.4rem;
+}
+.prose ol li { margin-bottom: 0.6rem; padding-left: 0.25rem; }
+
+/* Inline contact row under the intro */
+.contact {
+  font-family: var(--font-sans);
+  font-size: var(--size-sm);
+  color: var(--color-muted);
+  margin-top: var(--step);
+}
+.contact a { color: var(--color-link); }
+
+/* -------------------------------------------------------------------------
+   6. CONTENT SECTIONS (Research / Teaching / Personal)
+   scroll-margin-top offsets the sticky nav so a jumped-to heading isn't hidden
+   underneath it. Without this, clicking "Research" would tuck the H2 behind
+   the bar. This is the single most-forgotten detail in sticky-nav pages.
+   ------------------------------------------------------------------------- */
+.section {
+  padding-top: calc(var(--step) * 2);
+  margin-top: calc(var(--step) * 2);
+  border-top: 1px solid var(--color-rule);
+  scroll-margin-top: calc(var(--nav-h) + var(--step));
+}
+.section h2 {
+  font-size: var(--size-lg);
+  margin-bottom: var(--step);
+}
+.section p { margin-bottom: var(--step); }
+
+/* A quiet placeholder style for sections whose content you'll add later. */
+.placeholder { color: var(--color-muted); font-style: italic; }
+
+/* Sub-heading within a section ("Publications", "Conference Presentations").
+   A small sans eyebrow — it labels a genuine grouping, so it earns its place. */
+.section h3 {
+  font-family: var(--font-sans);
+  font-size: var(--size-xs);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin: calc(var(--step) * 1.4) 0 calc(var(--step) * 0.75);
+}
+.section h3:first-of-type { margin-top: var(--step); }
+
+/* Reference list — publications, talks, service. One reusable class, three uses.
+   Hanging indent: continuation lines tuck under the first, so each entry reads
+   as a discrete, scannable block the way a printed bibliography does. */
+.reflist { list-style: none; padding: 0; margin: 0; }
+.reflist li {
+  font-size: var(--size-sm);
+  line-height: 1.5;
+  margin-bottom: calc(var(--step) * 0.8);
+  padding-left: 1.5em;
+  text-indent: -1.5em;
+}
+.reflist strong { font-weight: 600; }        /* your name, made scannable */
+.reflist em { color: var(--color-muted); }   /* venue, quietly de-emphasised */
+
+/* Testimonial — a quiet left rule instead of quotation-mark ornament. The rule
+   is a token colour, so quotes stay visually tied to the rest of the palette. */
+.quote {
+  margin: 0 0 calc(var(--step) * 1.2);
+  padding-left: var(--step);
+  border-left: 3px solid var(--color-rule);
+  font-size: var(--size-sm);
+  line-height: 1.6;
+}
+.quote p { margin: 0; }
+.quote em { font-style: italic; }            /* the emphasis the writer asked for */
+.quote .attr {
+  display: block;
+  margin-top: 0.6rem;
+  font-family: var(--font-sans);
+  font-size: var(--size-xs);
+  color: var(--color-muted);
+}
+
+/* Photo grid — the columns auto-fit and wrap: two side by side on a wide
+   screen, stacked on a phone, with no media query needed. The min() guard
+   lets a single column shrink below 15rem rather than overflow a narrow view. */
+.photos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  gap: var(--step);
+  margin-top: calc(var(--step) * 1.2);
+}
+.photos figure { margin: 0; }
+.photos img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+  background: var(--color-surface);      /* tinted placeholder until the file exists */
+  border: 1px solid var(--color-rule);
+}
+.photos figcaption {
+  font-family: var(--font-sans);
+  font-size: var(--size-xs);
+  color: var(--color-muted);
+  margin-top: 0.4rem;
+}
+
+/* -------------------------------------------------------------------------
+   7. FOOTER
+   ------------------------------------------------------------------------- */
+.site-footer {
+  margin-top: calc(var(--step) * 3);
+  padding-top: var(--step);
+  border-top: 1px solid var(--color-rule);
+  font-family: var(--font-sans);
+  font-size: var(--size-xs);
+  color: var(--color-muted);
+}
+
+/* -------------------------------------------------------------------------
+   8. RESPONSIVE + ACCESSIBILITY
+   ------------------------------------------------------------------------- */
+@media (max-width: 34rem) {
+  .hero { flex-direction: column-reverse; }   /* photo above prose on phones */
+  .hero__figure { flex-basis: auto; align-self: flex-start; width: 9rem; }
+  .greeting { font-size: var(--size-lg); }
+
+  /* Let the nav wrap to two rows instead of overflowing: the brand claims a
+     full row (flex-basis:100%), so the section links fall neatly beneath it. */
+  .site-nav {
+    height: auto;
+    flex-wrap: wrap;
+    gap: 0.4rem calc(var(--step) * 0.9);
+    padding: 0.7rem var(--step);
+  }
+  .site-nav .brand { flex-basis: 100%; margin-right: 0; }
+}
+
+/* Honour users who ask the OS to reduce motion: kill smooth scrolling. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  a { transition: none; }
+}
