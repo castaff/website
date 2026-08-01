@@ -269,18 +269,13 @@
       </div>
     </section>
 
-    <footer class="site-footer">
-      &copy; <span id="year">2026</span> Celia Stafford
-    </footer>
-
     </div><!-- /.wrap -->
   </main>
 
-  <!-- Tiny, dependency-free script: fills the weekday and the footer year. -->
+  <!-- Tiny, dependency-free script: fills in the live weekday. -->
   <script>
     document.getElementById("weekday").textContent =
       new Date().toLocaleDateString("en-US", { weekday: "long" });
-    document.getElementById("year").textContent = new Date().getFullYear();
   </script>
 
 </body>

@@ -20,6 +20,7 @@
   --color-link:      #3a5878;   /* links — a deeper slate, harmonised      */
   --color-link-hover:#22405f;   /* link on hover/focus                     */
   --color-rule:      #c1cad9;   /* hairline dividers                       */
+  --color-accent:    #1f5aa6;   /* vivid blue for sub-headings (WORKING PAPERS…) */
 
   /* Dark navigation bar — a near-black slate (not pure #000) so it reads as
      "black" while staying in the blue family and not clashing with the wash. */
@@ -130,11 +131,12 @@ h1, h2 { font-weight: 600; line-height: 1.2; }
 }
 .nav-inner a:hover, .nav-inner a:focus-visible { color: var(--color-nav-ink); }
 
-/* The reading column: centred, capped at the NARROWER measure. Holds every
-   section below the hero. No top padding — the hero supplies the top gap and
-   each section carries its own top spacing. */
+/* The sections wrapper now matches the WIDER hero width, so its left edge lines
+   up with the bio text and the section dividers can run the full width. The
+   reading text inside each section is capped separately (see §6) and left-
+   aligned, so lines stay comfortable while the rule above them spans full. */
 .wrap {
-  max-width: var(--measure);
+  max-width: var(--measure-wide);
   margin-inline: auto;
   padding: 0 var(--step) calc(var(--step) * 2);
 }
@@ -146,12 +148,12 @@ h1, h2 { font-weight: 600; line-height: 1.2; }
 .hero {
   max-width: var(--measure-wide);         /* wider than the reading column below */
   margin-inline: auto;
-  padding: calc(var(--step) * 2) var(--step) 0;
+  padding: calc(var(--step) * 1.35) var(--step) 0;   /* less top gap under the nav */
   display: flex;
   gap: calc(var(--step) * 1.5);
   align-items: flex-start;
 }
-.hero__body { flex: 1 1 auto; }
+.hero__body { flex: 1 1 auto; line-height: 1.55; }   /* a touch tighter than body's 1.65 */
 .hero__figure { flex: 0 0 15rem; margin-top: 0.4rem; }
 .hero__figure img {
   width: 100%;
@@ -169,7 +171,7 @@ h1, h2 { font-weight: 600; line-height: 1.2; }
   text-align: center;
 }
 
-.greeting { font-size: var(--size-xl); margin-bottom: var(--step); }
+.greeting { font-size: var(--size-xl); margin-bottom: calc(var(--step) * 0.8); }
 
 /* Job-market status — a small sans line, weighted and coloured so a skimming
    reader catches it instantly without it shouting. */
@@ -178,14 +180,14 @@ h1, h2 { font-weight: 600; line-height: 1.2; }
   font-size: var(--size-sm);
   font-weight: 600;
   color: var(--color-link);
-  margin-bottom: var(--step);
+  margin-bottom: calc(var(--step) * 0.8);
 }
 
 /* Working papers — title on its own line, an optional JMP tag, then a muted
    abstract. Distinct from .reflist because these need a description block. */
 .worklist { list-style: none; padding: 0; margin: 0; }
 .worklist > li { margin-bottom: calc(var(--step) * 1.1); }
-.worklist .title { font-weight: 600; }
+.worklist .title { font-weight: 600; font-size: var(--size-sm); }
 .worklist .jmp {
   font-family: var(--font-sans);
   font-size: var(--size-xs);
@@ -203,13 +205,13 @@ h1, h2 { font-weight: 600; line-height: 1.2; }
 }
 .worklist li.placeholder { font-style: italic; color: var(--color-muted); }
 
-/* Prose rhythm: space paragraphs and the list by the rhythm unit. */
-.prose > p { margin-bottom: var(--step); }
+/* Prose rhythm in the hero: a little tighter than the sections below. */
+.prose > p { margin-bottom: calc(var(--step) * 0.75); }
 .prose ol {
-  margin: 0 0 var(--step);
+  margin: 0 0 calc(var(--step) * 0.75);
   padding-left: 1.4rem;
 }
-.prose ol li { margin-bottom: 0.6rem; padding-left: 0.25rem; }
+.prose ol li { margin-bottom: 0.5rem; padding-left: 0.25rem; }
 
 /* Inline contact row under the intro */
 .contact {
@@ -233,10 +235,21 @@ h1, h2 { font-weight: 600; line-height: 1.2; }
   scroll-margin-top: calc(var(--nav-h) + var(--step));
 }
 .section h2 {
-  font-size: var(--size-lg);
+  font-size: 1.5rem;                       /* a step up so section titles read clearly */
   margin-bottom: var(--step);
 }
 .section p { margin-bottom: var(--step); }
+
+/* The divider (the .section border-top) spans the full wrapper width, but the
+   READING content is capped and left-aligned so lines stay comfortable while
+   the rule above them runs full width. */
+.section p,
+.section ol,
+.section ul,
+.section blockquote,
+.section .photos {
+  max-width: var(--measure);
+}
 
 /* A quiet placeholder style for sections whose content you'll add later. */
 .placeholder { color: var(--color-muted); font-style: italic; }
@@ -249,7 +262,7 @@ h1, h2 { font-weight: 600; line-height: 1.2; }
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--color-muted);
+  color: var(--color-accent);
   margin: calc(var(--step) * 1.4) 0 calc(var(--step) * 0.75);
 }
 .section h3:first-of-type { margin-top: var(--step); }
