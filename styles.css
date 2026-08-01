@@ -48,8 +48,9 @@
      Widened to 48rem to match Dafna's roomier column and reduce scrolling.
      (Trade-off: lines run longer; nudge this down a rem or two if they feel
      too long to track.) */
-  --measure:   48rem;
-  --nav-h:     4rem;     /* nav height; also the anchor offset (see §6) */
+  --measure:      48rem;   /* the body reading column (Research, Teaching, …) */
+  --measure-wide: 58rem;   /* the roomier hero + nav bar, so the bio isn't cramped */
+  --nav-h:        4rem;    /* nav height; also the anchor offset (see §6) */
 }
 
 /* -------------------------------------------------------------------------
@@ -106,7 +107,7 @@ h1, h2 { font-weight: 600; line-height: 1.2; }
   background: var(--color-nav-bg);        /* the offset dark bar */
 }
 .nav-inner {
-  max-width: var(--measure);
+  max-width: var(--measure-wide);
   margin-inline: auto;
   height: var(--nav-h);
   display: flex;
@@ -129,18 +130,27 @@ h1, h2 { font-weight: 600; line-height: 1.2; }
 }
 .nav-inner a:hover, .nav-inner a:focus-visible { color: var(--color-nav-ink); }
 
-/* The reading column: centred, capped at the measure. */
+/* The reading column: centred, capped at the NARROWER measure. Holds every
+   section below the hero. No top padding — the hero supplies the top gap and
+   each section carries its own top spacing. */
 .wrap {
   max-width: var(--measure);
   margin-inline: auto;
-  padding: calc(var(--step) * 2) var(--step);
+  padding: 0 var(--step) calc(var(--step) * 2);
 }
 
 /* -------------------------------------------------------------------------
    5. HERO
    Intro prose beside a modest headshot on wide screens; stacked on narrow.
    ------------------------------------------------------------------------- */
-.hero { display: flex; gap: calc(var(--step) * 1.5); align-items: flex-start; }
+.hero {
+  max-width: var(--measure-wide);         /* wider than the reading column below */
+  margin-inline: auto;
+  padding: calc(var(--step) * 2) var(--step) 0;
+  display: flex;
+  gap: calc(var(--step) * 1.5);
+  align-items: flex-start;
+}
 .hero__body { flex: 1 1 auto; }
 .hero__figure { flex: 0 0 15rem; margin-top: 0.4rem; }
 .hero__figure img {
