@@ -21,6 +21,12 @@
   --color-link-hover:#22405f;   /* link on hover/focus                     */
   --color-rule:      #c1cad9;   /* hairline dividers                       */
 
+  /* Dark navigation bar — a near-black slate (not pure #000) so it reads as
+     "black" while staying in the blue family and not clashing with the wash. */
+  --color-nav-bg:    #1b232e;   /* the bar itself                          */
+  --color-nav-ink:   #f4f6fa;   /* brand + hovered links (near-white)      */
+  --color-nav-dim:   #b9c2d0;   /* the right-hand links at rest, dimmed     */
+
   /* Type — a scholarly serif for reading, a clean sans for nav/labels.
      Both are system stacks: zero network cost, no flash of unstyled text.
      To adopt a webfont later: add one <link> in the HTML, then swap the
@@ -38,9 +44,12 @@
   /* Spacing rhythm — one unit, its multiples used throughout */
   --step:      1.5rem;
 
-  /* Layout — the "measure": the max line length for comfortable reading */
-  --measure:   40rem;
-  --nav-h:     3.5rem;   /* nav height; also the anchor offset (see §6) */
+  /* Layout — the "measure": the max line length for comfortable reading.
+     Widened to 48rem to match Dafna's roomier column and reduce scrolling.
+     (Trade-off: lines run longer; nudge this down a rem or two if they feel
+     too long to track.) */
+  --measure:   48rem;
+  --nav-h:     4rem;     /* nav height; also the anchor offset (see §6) */
 }
 
 /* -------------------------------------------------------------------------
@@ -84,28 +93,41 @@ h1, h2 { font-weight: 600; line-height: 1.2; }
    The nav is STICKY. Rationale: on a single-page site the whole point of the
    section links is to jump around; if the nav scrolled away it would be
    reachable only from the very top. Sticky keeps it perpetually usable.
+
+   Structure: .site-nav is the full-width DARK BAND (its background bleeds edge
+   to edge). .nav-inner holds the content and is constrained to the same
+   --measure as the body, with the same padding — so the brand's left edge and
+   the links' right edge line up exactly with the text column below.
    ------------------------------------------------------------------------- */
 .site-nav {
   position: sticky;
   top: 0;
   z-index: 10;
+  background: var(--color-nav-bg);        /* the offset dark bar */
+}
+.nav-inner {
+  max-width: var(--measure);
+  margin-inline: auto;
   height: var(--nav-h);
   display: flex;
   align-items: center;
   gap: var(--step);
   padding: 0 var(--step);
-  background: var(--color-bg);            /* same wash → nav "belongs" to page */
-  border-bottom: 1px solid var(--color-rule);
   font-family: var(--font-sans);
   font-size: var(--size-sm);
 }
-.site-nav .brand {
-  font-weight: 600;
+.nav-inner .brand {
+  font-size: 1.5rem;                      /* several steps larger than the links */
+  font-weight: 600;                       /* kept bold, as you liked */
+  color: var(--color-nav-ink);            /* full near-white → most prominent */
   margin-right: auto;                     /* pushes the section links to the right */
   border-bottom: none;
 }
-.site-nav a { color: var(--color-ink); border-bottom: none; }
-.site-nav a:hover, .site-nav a:focus-visible { color: var(--color-link-hover); }
+.nav-inner a {
+  color: var(--color-nav-dim);            /* dimmed at rest so the brand dominates */
+  border-bottom: none;
+}
+.nav-inner a:hover, .nav-inner a:focus-visible { color: var(--color-nav-ink); }
 
 /* The reading column: centred, capped at the measure. */
 .wrap {
@@ -120,7 +142,7 @@ h1, h2 { font-weight: 600; line-height: 1.2; }
    ------------------------------------------------------------------------- */
 .hero { display: flex; gap: calc(var(--step) * 1.5); align-items: flex-start; }
 .hero__body { flex: 1 1 auto; }
-.hero__figure { flex: 0 0 11rem; margin-top: 0.4rem; }
+.hero__figure { flex: 0 0 15rem; margin-top: 0.4rem; }
 .hero__figure img {
   width: 100%;
   aspect-ratio: 4 / 5;
@@ -138,6 +160,38 @@ h1, h2 { font-weight: 600; line-height: 1.2; }
 }
 
 .greeting { font-size: var(--size-xl); margin-bottom: var(--step); }
+
+/* Job-market status — a small sans line, weighted and coloured so a skimming
+   reader catches it instantly without it shouting. */
+.status {
+  font-family: var(--font-sans);
+  font-size: var(--size-sm);
+  font-weight: 600;
+  color: var(--color-link);
+  margin-bottom: var(--step);
+}
+
+/* Working papers — title on its own line, an optional JMP tag, then a muted
+   abstract. Distinct from .reflist because these need a description block. */
+.worklist { list-style: none; padding: 0; margin: 0; }
+.worklist > li { margin-bottom: calc(var(--step) * 1.1); }
+.worklist .title { font-weight: 600; }
+.worklist .jmp {
+  font-family: var(--font-sans);
+  font-size: var(--size-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-link);
+  white-space: nowrap;
+  margin-left: 0.35rem;
+}
+.worklist p {
+  font-size: var(--size-sm);
+  color: var(--color-muted);
+  margin-top: 0.4rem;
+}
+.worklist li.placeholder { font-style: italic; color: var(--color-muted); }
 
 /* Prose rhythm: space paragraphs and the list by the rhythm unit. */
 .prose > p { margin-bottom: var(--step); }
@@ -265,18 +319,18 @@ h1, h2 { font-weight: 600; line-height: 1.2; }
    ------------------------------------------------------------------------- */
 @media (max-width: 34rem) {
   .hero { flex-direction: column-reverse; }   /* photo above prose on phones */
-  .hero__figure { flex-basis: auto; align-self: flex-start; width: 9rem; }
+  .hero__figure { flex-basis: auto; align-self: flex-start; width: 12rem; }
   .greeting { font-size: var(--size-lg); }
 
   /* Let the nav wrap to two rows instead of overflowing: the brand claims a
      full row (flex-basis:100%), so the section links fall neatly beneath it. */
-  .site-nav {
+  .nav-inner {
     height: auto;
     flex-wrap: wrap;
     gap: 0.4rem calc(var(--step) * 0.9);
     padding: 0.7rem var(--step);
   }
-  .site-nav .brand { flex-basis: 100%; margin-right: 0; }
+  .nav-inner .brand { flex-basis: 100%; margin-right: 0; font-size: 1.35rem; }
 }
 
 /* Honour users who ask the OS to reduce motion: kill smooth scrolling. */
