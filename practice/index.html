@@ -34,6 +34,9 @@
     .practice label{display:flex;align-items:center;gap:.4rem;font-size:.9em;opacity:.85}
     .practice .grow{flex:1}
     .practice-foot{margin-top:1.25rem;font-size:.8em;opacity:.65;line-height:1.5}
+    .practice .custom{margin-top:1.1rem}
+    .practice .custom label{display:block;margin-bottom:.4rem;opacity:.85}
+    .practice .custom textarea{width:100%;font:inherit;font-size:.95em;color:inherit;background:transparent;border:1px solid var(--rule);border-radius:6px;padding:.5rem .7rem;margin-bottom:.6rem;resize:vertical}
     @media (prefers-reduced-motion:reduce){*{transition:none!important}}
   </style>
 </head>
@@ -81,7 +84,12 @@
             </select>
           </label>
         </div>
-
+        <div class="custom">
+          <label for="custom-list">If you want to use your own list of questions, please delimit with a semicolon and paste here.</label>
+          <textarea id="custom-list" rows="3" placeholder="Question one; Question two; Question three"></textarea>
+          <button id="use-custom">Use my list</button>
+          <button id="reset-list">Back to default list</button>
+        </div>
         <p class="practice-foot" id="foot"></p>
       </section>
     </div>
@@ -710,10 +718,20 @@ $('pause').addEventListener('click', togglePause);
 $('len').addEventListener('change', () => { total = left = parseInt($('len').value, 10); if (started) start(); else render(); });
 $('cat').addEventListener('change', () => { buildDeck(); foot(); });
 document.addEventListener('keydown', e => {
-  if (e.target.tagName === 'SELECT') return;
+if (e.target.tagName === 'SELECT' || e.target.tagName === 'TEXTAREA') return;
   if (e.code === 'Space'){ e.preventDefault(); nextQuestion(); }
   else if (e.key === 'p' || e.key === 'P') togglePause();
 });
+  $('use-custom').addEventListener('click', () => {
+    const qs = $('custom-list').value.split(';').map(s => s.trim()).filter(Boolean);
+    if (!qs.length) return;
+    all = qs.map(q => ({c: 'Your list', q}));
+    buildTopics(); buildDeck(); foot();
+  });
+  $('reset-list').addEventListener('click', () => {
+    $('custom-list').value = '';
+    load().then(render);
+  });
 load().then(render);
 </script>
 </body>
