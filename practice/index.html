@@ -50,7 +50,7 @@
     <div class="wrap practice">
       <section class="section">
         <h2 class="page-title">Interview practice</h2>
-        <p class="lede">Practice answering academic job market questions out loud. Each question starts a timer. Space for the next question, P to pause. Built by <a href="../">Celia Stafford</a>.</p>
+        <p class="lede">Practice answering academic job market questions out loud. Each question starts a timer. Space for the next question, P to pause. </p>
 
         <p class="topic" id="topic"></p>
         <h3 class="question empty" id="q" aria-live="polite">Press Next question to begin.</h3>
@@ -671,7 +671,7 @@ async function load(){
 function foot(){
   const n = pool().length;
   $('foot').textContent = (started ? 'Question ' + seen + ' of ' + n + ' this round. ' : n + ' questions. ') +
-    'Crowdsourced from candidate reports; not affiliated with or endorsed by any school.';
+    'Crowdsourced from candidate reports, reddit, my brain, interviews I have had, friends etc. If you think anything should be added shoot me an email.';
 }
 function fmt(s){ s = Math.max(0, Math.ceil(s)); return Math.floor(s/60) + ':' + String(s % 60).padStart(2,'0'); }
 function render(){
