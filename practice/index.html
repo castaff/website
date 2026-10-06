@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Academic job interview practice</title>
+<meta name="description" content="A random question generator with a timer for practicing academic job market interviews.">
+<style>
+  :root{
+    --bg:#f3f4f6; --ink:#1b1f27; --muted:#666c7b; --line:#d5d8df;
+    --accent:#a41034; --accent-ink:#ffffff;
+    --serif:"Iowan Old Style","Charter","Georgia",serif;
+    --sans:system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{ --bg:#16181d; --ink:#eceef2; --muted:#9aa1b0; --line:#2e323b; --accent:#e0506f; --accent-ink:#16181d; }
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);display:flex;flex-direction:column;min-height:100%}
+  main{flex:1;display:flex;flex-direction:column;justify-content:center;max-width:52rem;width:100%;margin:0 auto;padding:2rem 1.5rem}
+  .intro{color:var(--muted);font-size:.95rem;margin:0 0 2rem;max-width:38rem;line-height:1.5}
+  .topic{color:var(--muted);font-size:.9rem;margin:0 0 .75rem;min-height:1.3em}
+  .question{font-family:var(--serif);font-size:clamp(1.6rem,4.2vw,2.6rem);line-height:1.3;margin:0 0 2.5rem;min-height:6.5em;font-weight:400;text-wrap:balance}
+  .question.empty{color:var(--muted)}
+  .bar{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin-bottom:1rem}
+  .fill{height:100%;width:100%;background:var(--accent);transform-origin:left}
+  .clock{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:1.5rem}
+  .time{font-family:var(--serif);font-size:clamp(3.5rem,11vw,6rem);line-height:1;font-variant-numeric:tabular-nums}
+  .time.over{color:var(--accent)}
+  .status{color:var(--muted);font-size:.95rem}
+  .controls{display:flex;flex-wrap:wrap;gap:.75rem;align-items:center}
+  button,select{font:inherit;color:var(--ink);background:transparent;border:1px solid var(--line);border-radius:6px;padding:.65rem 1rem;cursor:pointer}
+  button:hover,select:hover{border-color:var(--muted)}
+  button:focus-visible,select:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+  button.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600;padding:.75rem 1.5rem}
+  button.primary:hover{filter:brightness(1.08)}
+  .row{display:flex;flex-wrap:wrap;gap:1rem;margin-top:1.25rem}
+  label{color:var(--muted);font-size:.9rem;display:flex;align-items:center;gap:.5rem}
+  footer{padding:1rem 1.5rem 1.5rem;color:var(--muted);font-size:.8rem;text-align:center;line-height:1.5}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<main>
+  <p class="intro">Practice answering academic job market interview questions out loud. Each question starts a timer. Space for the next question, P to pause.</p>
+  <p class="topic" id="topic"></p>
+  <h1 class="question empty" id="q" aria-live="polite">Press Next question to begin.</h1>
+  <div class="clock">
+    <div class="time" id="time">0:30</div>
+    <div class="status" id="status"></div>
+  </div>
+  <div class="bar" aria-hidden="true"><div class="fill" id="fill"></div></div>
+  <div class="controls">
+    <button class="primary" id="next">Next question</button>
+    <button id="pause">Pause</button>
+    <button id="restart">Restart timer</button>
+  </div>
+  <div class="row">
+    <label>Topic <select id="cat"></select></label>
+    <label>Timer
+      <select id="len">
+        <option value="30" selected>30 sec</option>
+        <option value="60">1 min</option>
+        <option value="90">90 sec</option>
+        <option value="120">2 min</option>
+        <option value="180">3 min</option>
+      </select>
+    </label>
+  </div>
+</main>
+<footer id="foot"></footer>
+
+<script>
+/* Fallback copy, used only if questions.txt cannot be loaded (e.g. file opened from disk).
+   questions.txt is the source of truth. */
+const FALLBACK = [
+ {
+  "c": "About you and fit",
+  "q": "Tell us a bit about yourself and your research. Keep it interesting."
+ },
+ {
+  "c": "About you and fit",
+  "q": "Can you describe your identity as a researcher, and how you arrived at your streams of research?"
+ },
+ {
+  "c": "About you and fit",
+  "q": "Which research conversation would you say you belong to?"
+ },
+ {
+  "c": "About you and fit",
+  "q": "Why did you go into academia?"
+ },
+ {
+  "c": "About you and fit",
+  "q": "Why are you interested in this role?"
+ },
+ {
+  "c": "About you and fit",
+  "q": "Why this school? What is it about us that interests you?"
+ },
+ {
+  "c": "About you and fit",
+  "q": "How do you see yourself contributing to our department?"
+ },
+ {
+  "c": "About you and fit",
+  "q": "How do you see yourself contributing to the mission of our school?"
+ },
+ {
+  "c": "About you and fit",
+  "q": "Why do you want to live in this city or region?"
+ },
+ {
+  "c": "About you and fit",
+  "q": "What would stop you from joining our school?"
+ },
+ {
+  "c": "About you and fit",
+  "q": "What other schools are you applying to?"
+ },
+ {
+  "c": "About you and fit",
+  "q": "What are your top three schools, not including us? What do those three have in common with us?"
+ },
+ {
+  "c": "About you and fit",
+  "q": "On a scale from 1 to 10, what is your desire to come to our school?"
+ },
+ {
+  "c": "About you and fit",
+  "q": "What is your ideal department? What qualities do you look for when choosing where to work?"
+ },
+ {
+  "c": "About you and fit",
+  "q": "What do you dislike about our department?"
+ },
+ {
+  "c": "About you and fit",
+  "q": "Why should we NOT hire you?"
+ },
+ {
+  "c": "About you and fit",
+  "q": "Tell us what you need to be successful here."
+ },
+ {
+  "c": "About you and fit",
+  "q": "What was the hardest part of the job market for you, and what did it teach you?"
+ },
+ {
+  "c": "Your research",
+  "q": "What is your most impactful research to date? Tell us a little about it."
+ },
+ {
+  "c": "Your research",
+  "q": "State the contribution of your main paper in one sentence."
+ },
+ {
+  "c": "Your research",
+  "q": "Walk us through your job market paper in five minutes."
+ },
+ {
+  "c": "Your research",
+  "q": "Describe one project that is not currently under review. What have you contributed, and what is the target journal?"
+ },
+ {
+  "c": "Your research",
+  "q": "What are your research strengths?"
+ },
+ {
+  "c": "Your research",
+  "q": "What is the biggest limitation of your research, and what would you do about it?"
+ },
+ {
+  "c": "Your research",
+  "q": "What is the strongest counterargument to your central claim?"
+ },
+ {
+  "c": "Your research",
+  "q": "What evidence would change your mind about your main finding?"
+ },
+ {
+  "c": "Your research",
+  "q": "How do you think about generalizing from your setting or sample to other contexts?"
+ },
+ {
+  "c": "Your research",
+  "q": "How do you decide which questions are worth asking?"
+ },
+ {
+  "c": "Your research",
+  "q": "How has your research agenda changed since you started your PhD?"
+ },
+ {
+  "c": "Your research",
+  "q": "What is a project that failed, and what did you learn from it?"
+ },
+ {
+  "c": "Your research",
+  "q": "What are your quantitative, computational, or qualitative skills? What have you used in your research?"
+ },
+ {
+  "c": "Your research",
+  "q": "What method would you like to learn that you don't know now?"
+ },
+ {
+  "c": "Your research",
+  "q": "What are your favorite parts of the research process, and why?"
+ },
+ {
+  "c": "Your research",
+  "q": "What is your favorite theory in our field, and where does it fall short?"
+ },
+ {
+  "c": "Your research",
+  "q": "What do you think is overrated or underrated in our field right now?"
+ },
+ {
+  "c": "Your research",
+  "q": "What recent books or papers have you read that relate to your research interests?"
+ },
+ {
+  "c": "Your research",
+  "q": "Who is the audience for your work beyond academics?"
+ },
+ {
+  "c": "Your research",
+  "q": "If you had an unlimited research budget and could use any method, what would you research and why?"
+ },
+ {
+  "c": "Your research",
+  "q": "How do you incorporate social justice into your scholarship?"
+ },
+ {
+  "c": "Your research",
+  "q": "Why do you want to move here when your research seems to depend on a different location?"
+ },
+ {
+  "c": "Publishing and productivity",
+  "q": "How do you plan to get your work published in top-tier journals? Besides submitting through the online portal."
+ },
+ {
+  "c": "Publishing and productivity",
+  "q": "What is your plan for publishing your working papers?"
+ },
+ {
+  "c": "Publishing and productivity",
+  "q": "When are your papers in progress likely to be submitted to journals?"
+ },
+ {
+  "c": "Publishing and productivity",
+  "q": "How would you respond to a reviewer who says your paper isn't novel?"
+ },
+ {
+  "c": "Publishing and productivity",
+  "q": "How do you handle a harsh reviewer report?"
+ },
+ {
+  "c": "Publishing and productivity",
+  "q": "What would you do if a core result in your paper failed to replicate?"
+ },
+ {
+  "c": "Publishing and productivity",
+  "q": "Why did you choose one journal over another for a paper you published?"
+ },
+ {
+  "c": "Publishing and productivity",
+  "q": "Your CV lists more working papers than publications. Why?"
+ },
+ {
+  "c": "Publishing and productivity",
+  "q": "How much time do you spend writing, and how do you structure it?"
+ },
+ {
+  "c": "Publishing and productivity",
+  "q": "How do you decide when to keep pushing a project and when to drop it?"
+ },
+ {
+  "c": "Publishing and productivity",
+  "q": "How do you keep up with the literature?"
+ },
+ {
+  "c": "Publishing and productivity",
+  "q": "What strategies would you use to make sure your research has impact?"
+ },
+ {
+  "c": "Publishing and productivity",
+  "q": "What is your 3 or 5 year plan?"
+ },
+ {
+  "c": "Publishing and productivity",
+  "q": "Why did it take you so long to complete your PhD?"
+ },
+ {
+  "c": "Collaboration and mentoring",
+  "q": "How is your work related to the research of others in the department? What are the possibilities for collaboration?"
+ },
+ {
+  "c": "Collaboration and mentoring",
+  "q": "Which of our PhD students or alumni would you be most likely to collaborate with?"
+ },
+ {
+  "c": "Collaboration and mentoring",
+  "q": "What sort of collaborator are you?"
+ },
+ {
+  "c": "Collaboration and mentoring",
+  "q": "How do you handle authorship and credit with coauthors?"
+ },
+ {
+  "c": "Collaboration and mentoring",
+  "q": "Tell us about a time you disagreed with an advisor or coauthor. What happened?"
+ },
+ {
+  "c": "Collaboration and mentoring",
+  "q": "What kind of colleagues do you like, and not like, to work with, and why?"
+ },
+ {
+  "c": "Collaboration and mentoring",
+  "q": "How would you mentor a doctoral student?"
+ },
+ {
+  "c": "Collaboration and mentoring",
+  "q": "What can you bring to the doctoral program that other professors cannot?"
+ },
+ {
+  "c": "Collaboration and mentoring",
+  "q": "We have a strong focus on an area adjacent to yours. How could you add to it?"
+ },
+ {
+  "c": "Collaboration and mentoring",
+  "q": "Which of our faculty would you want to talk to first, and why?"
+ },
+ {
+  "c": "Teaching",
+  "q": "What courses would you be prepared to teach?"
+ },
+ {
+  "c": "Teaching",
+  "q": "What course would you want to teach, and which would you not want to teach?"
+ },
+ {
+  "c": "Teaching",
+  "q": "If you were to design a new topical seminar for the program, what would it be?"
+ },
+ {
+  "c": "Teaching",
+  "q": "Describe your teaching philosophy."
+ },
+ {
+  "c": "Teaching",
+  "q": "How would you spend a 90-minute class?"
+ },
+ {
+  "c": "Teaching",
+  "q": "Of the lectures you have taught, which was your favorite and why?"
+ },
+ {
+  "c": "Teaching",
+  "q": "What frustrates you about students?"
+ },
+ {
+  "c": "Teaching",
+  "q": "How would you handle conflict with a student in your class?"
+ },
+ {
+  "c": "Teaching",
+  "q": "What do your students say you most need to improve?"
+ },
+ {
+  "c": "Teaching",
+  "q": "How do you assess learning?"
+ },
+ {
+  "c": "Teaching",
+  "q": "How would you handle a class in which many students have more work experience than you?"
+ },
+ {
+  "c": "Teaching",
+  "q": "How would you use, or restrict, generative AI in your classroom?"
+ },
+ {
+  "c": "Teaching",
+  "q": "How do you engage a student who has checked out?"
+ },
+ {
+  "c": "Teaching",
+  "q": "How would you prepare to teach a course outside your research area?"
+ },
+ {
+  "c": "Teaching",
+  "q": "You taught three classes and two preps. Why take on two preps when it costs research time?"
+ },
+ {
+  "c": "Teaching",
+  "q": "Are you more of a professor or a researcher?"
+ },
+ {
+  "c": "Service, citizenship, and career",
+  "q": "What is your ratio between teaching, research, and service?"
+ },
+ {
+  "c": "Service, citizenship, and career",
+  "q": "How would you handle service requests in your first years?"
+ },
+ {
+  "c": "Service, citizenship, and career",
+  "q": "How do you say no to a senior colleague?"
+ },
+ {
+  "c": "Service, citizenship, and career",
+  "q": "In your opinion, what makes someone a good academic citizen?"
+ },
+ {
+  "c": "Service, citizenship, and career",
+  "q": "What is your vision of collegiality and leadership?"
+ },
+ {
+  "c": "Service, citizenship, and career",
+  "q": "What is your planned contribution to diversity?"
+ },
+ {
+  "c": "Service, citizenship, and career",
+  "q": "What are the aspects of an academic's job you find most challenging?"
+ },
+ {
+  "c": "Service, citizenship, and career",
+  "q": "What challenges did you face in your academic life, and how did you handle them?"
+ },
+ {
+  "c": "Service, citizenship, and career",
+  "q": "Imagine yourself as a full professor. What would you like to have contributed to the department?"
+ },
+ {
+  "c": "Service, citizenship, and career",
+  "q": "Who are you as a professor, five years from now?"
+ },
+ {
+  "c": "Service, citizenship, and career",
+  "q": "Who is an academic whom you admire, and why?"
+ },
+ {
+  "c": "Service, citizenship, and career",
+  "q": "What is the accomplishment in your career that you are most proud of?"
+ },
+ {
+  "c": "Service, citizenship, and career",
+  "q": "Can you give an example of a time you took a leadership role in developing something new?"
+ },
+ {
+  "c": "Service, citizenship, and career",
+  "q": "Tell us about a time you went above and beyond."
+ },
+ {
+  "c": "Service, citizenship, and career",
+  "q": "What work experience do you have that doesn't appear on your CV?"
+ },
+ {
+  "c": "Service, citizenship, and career",
+  "q": "You have seen our school's partners on our website. Who do you think we are missing?"
+ },
+ {
+  "c": "Character",
+  "q": "What is your greatest strength and your greatest weakness?"
+ },
+ {
+  "c": "Character",
+  "q": "What are a few words a friend or colleague might use to describe you?"
+ },
+ {
+  "c": "Character",
+  "q": "Name three of your values."
+ },
+ {
+  "c": "Character",
+  "q": "Tell us about a piece of feedback that changed how you work."
+ },
+ {
+  "c": "Closers",
+  "q": "What questions do you have for us?"
+ },
+ {
+  "c": "Closers",
+  "q": "Is there anything we haven't asked that you want to highlight?"
+ }
+];
+
+const $ = id => document.getElementById(id);
+let all = [], deck = [], seen = 0, source = '';
+let total = 30, left = 30, running = false, timer = null, endAt = 0, started = false;
+
+function parse(text){
+  const out = []; let cat = 'General';
+  for (let line of text.split(/\r?\n/)){
+    line = line.trim();
+    if (!line) continue;
+    if (line.startsWith('## ')){ cat = line.slice(3).trim(); continue; }
+    if (line.startsWith('#')) continue;
+    out.push({c: cat, q: line});
+  }
+  return out;
+}
+function shuffle(a){
+  a = a.slice();
+  for (let i = a.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
+  return a;
+}
+function pool(){ const c = $('cat').value; return c === '*' ? all : all.filter(x => x.c === c); }
+function buildDeck(){ deck = shuffle(pool()); seen = 0; }
+function buildTopics(){
+  const sel = $('cat'); sel.innerHTML = '';
+  const add = (v, t) => { const o = document.createElement('option'); o.value = v; o.textContent = t; sel.appendChild(o); };
+  add('*', 'All topics');
+  [...new Set(all.map(x => x.c))].forEach(c => add(c, c));
+}
+async function load(){
+  try {
+    const r = await fetch('questions.txt', {cache:'no-store'});
+    if (!r.ok) throw new Error(r.status);
+    const qs = parse(await r.text());
+    if (!qs.length) throw new Error('empty');
+    all = qs; source = 'questions.txt';
+  } catch (e) { all = FALLBACK.slice(); source = 'built-in list'; }
+  buildTopics(); buildDeck(); foot();
+}
+function foot(){
+  const n = pool().length;
+  $('foot').innerHTML = (started ? 'Question ' + seen + ' of ' + n + ' this round. ' : n + ' questions. ') +
+    'Crowdsourced from candidate reports; not affiliated with or endorsed by any school.';
+}
+function fmt(s){ s = Math.max(0, Math.ceil(s)); return Math.floor(s/60) + ':' + String(s % 60).padStart(2,'0'); }
+function render(){
+  $('time').textContent = fmt(left);
+  $('time').classList.toggle('over', left <= 0);
+  $('fill').style.transform = 'scaleX(' + Math.max(0, left / total) + ')';
+  $('status').textContent = !started ? '' : left <= 0 ? 'Time' : running ? '' : 'Paused';
+}
+function tick(){ left = (endAt - Date.now()) / 1000; if (left <= 0){ left = 0; stop(); } render(); }
+function start(){
+  if (left <= 0) return;
+  running = true; endAt = Date.now() + left * 1000;
+  clearInterval(timer); timer = setInterval(tick, 200);
+  $('pause').textContent = 'Pause'; render();
+}
+function stop(){ running = false; clearInterval(timer); $('pause').textContent = 'Resume'; render(); }
+function nextQuestion(){
+  if (!pool().length) return;
+  if (!deck.length) buildDeck();
+  const it = deck.pop(); seen++;
+  $('q').textContent = it.q; $('q').classList.remove('empty');
+  $('topic').textContent = it.c;
+  total = left = parseInt($('len').value, 10);
+  started = true; start(); foot();
+}
+function restart(){ if (!started) return; left = total = parseInt($('len').value, 10); start(); }
+function togglePause(){ if (!started) return; if (running) stop(); else if (left > 0) start(); }
+
+$('next').addEventListener('click', nextQuestion);
+$('restart').addEventListener('click', restart);
+$('pause').addEventListener('click', togglePause);
+$('len').addEventListener('change', () => { total = left = parseInt($('len').value, 10); if (started) start(); else render(); });
+$('cat').addEventListener('change', () => { buildDeck(); foot(); });
+document.addEventListener('keydown', e => {
+  if (e.target.tagName === 'SELECT') return;
+  if (e.code === 'Space'){ e.preventDefault(); nextQuestion(); }
+  else if (e.key === 'p' || e.key === 'P') togglePause();
+});
+load().then(render);
+</script>
+</body>
+</html>

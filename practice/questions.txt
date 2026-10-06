@@ -1,0 +1,123 @@
+# FORMAT
+# One question per line.
+# "## Name" starts a new topic (these populate the topic menu).
+# A single "#" line is a comment and is ignored. Blank lines are ignored.
+# Edit, add, or delete, then refresh the page.
+
+## About you and fit
+Tell us a bit about yourself and your research. Keep it interesting.
+Can you describe your identity as a researcher, and how you arrived at your streams of research?
+Which research conversation would you say you belong to?
+Why did you go into academia?
+Why are you interested in this role?
+Why this school? What is it about us that interests you?
+How do you see yourself contributing to our department?
+How do you see yourself contributing to the mission of our school?
+Why do you want to live in this city or region?
+What would stop you from joining our school?
+What other schools are you applying to?
+What are your top three schools, not including us? What do those three have in common with us?
+On a scale from 1 to 10, what is your desire to come to our school?
+What is your ideal department? What qualities do you look for when choosing where to work?
+What do you dislike about our department?
+Why should we NOT hire you?
+Tell us what you need to be successful here.
+What was the hardest part of the job market for you, and what did it teach you?
+
+## Your research
+What is your most impactful research to date? Tell us a little about it.
+State the contribution of your main paper in one sentence.
+Walk us through your job market paper in five minutes.
+Describe one project that is not currently under review. What have you contributed, and what is the target journal?
+What are your research strengths?
+What is the biggest limitation of your research, and what would you do about it?
+What is the strongest counterargument to your central claim?
+What evidence would change your mind about your main finding?
+How do you think about generalizing from your setting or sample to other contexts?
+How do you decide which questions are worth asking?
+How has your research agenda changed since you started your PhD?
+What is a project that failed, and what did you learn from it?
+What are your quantitative, computational, or qualitative skills? What have you used in your research?
+What method would you like to learn that you don't know now?
+What are your favorite parts of the research process, and why?
+What is your favorite theory in our field, and where does it fall short?
+What do you think is overrated or underrated in our field right now?
+What recent books or papers have you read that relate to your research interests?
+Who is the audience for your work beyond academics?
+If you had an unlimited research budget and could use any method, what would you research and why?
+How do you incorporate social justice into your scholarship?
+Why do you want to move here when your research seems to depend on a different location?
+
+## Publishing and productivity
+How do you plan to get your work published in top-tier journals? Besides submitting through the online portal.
+What is your plan for publishing your working papers?
+When are your papers in progress likely to be submitted to journals?
+How would you respond to a reviewer who says your paper isn't novel?
+How do you handle a harsh reviewer report?
+What would you do if a core result in your paper failed to replicate?
+Why did you choose one journal over another for a paper you published?
+Your CV lists more working papers than publications. Why?
+How much time do you spend writing, and how do you structure it?
+How do you decide when to keep pushing a project and when to drop it?
+How do you keep up with the literature?
+What strategies would you use to make sure your research has impact?
+What is your 3 or 5 year plan?
+Why did it take you so long to complete your PhD?
+
+## Collaboration and mentoring
+How is your work related to the research of others in the department? What are the possibilities for collaboration?
+Which of our PhD students or alumni would you be most likely to collaborate with?
+What sort of collaborator are you?
+How do you handle authorship and credit with coauthors?
+Tell us about a time you disagreed with an advisor or coauthor. What happened?
+What kind of colleagues do you like, and not like, to work with, and why?
+How would you mentor a doctoral student?
+What can you bring to the doctoral program that other professors cannot?
+We have a strong focus on an area adjacent to yours. How could you add to it?
+Which of our faculty would you want to talk to first, and why?
+
+## Teaching
+What courses would you be prepared to teach?
+What course would you want to teach, and which would you not want to teach?
+If you were to design a new topical seminar for the program, what would it be?
+Describe your teaching philosophy.
+How would you spend a 90-minute class?
+Of the lectures you have taught, which was your favorite and why?
+What frustrates you about students?
+How would you handle conflict with a student in your class?
+What do your students say you most need to improve?
+How do you assess learning?
+How would you handle a class in which many students have more work experience than you?
+How would you use, or restrict, generative AI in your classroom?
+How do you engage a student who has checked out?
+How would you prepare to teach a course outside your research area?
+You taught three classes and two preps. Why take on two preps when it costs research time?
+Are you more of a professor or a researcher?
+
+## Service, citizenship, and career
+What is your ratio between teaching, research, and service?
+How would you handle service requests in your first years?
+How do you say no to a senior colleague?
+In your opinion, what makes someone a good academic citizen?
+What is your vision of collegiality and leadership?
+What is your planned contribution to diversity?
+What are the aspects of an academic's job you find most challenging?
+What challenges did you face in your academic life, and how did you handle them?
+Imagine yourself as a full professor. What would you like to have contributed to the department?
+Who are you as a professor, five years from now?
+Who is an academic whom you admire, and why?
+What is the accomplishment in your career that you are most proud of?
+Can you give an example of a time you took a leadership role in developing something new?
+Tell us about a time you went above and beyond.
+What work experience do you have that doesn't appear on your CV?
+You have seen our school's partners on our website. Who do you think we are missing?
+
+## Character
+What is your greatest strength and your greatest weakness?
+What are a few words a friend or colleague might use to describe you?
+Name three of your values.
+Tell us about a piece of feedback that changed how you work.
+
+## Closers
+What questions do you have for us?
+Is there anything we haven't asked that you want to highlight?
