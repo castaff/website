@@ -23,6 +23,10 @@ What do you dislike about our department?
 Why should we NOT hire you?
 Tell us what you need to be successful here.
 What was the hardest part of the job market for you, and what did it teach you?
+Which professional association division or subgroup (for example, within the Academy of Management) do you fit into best?
+How did you get interested in the topic you are studying?
+Why is your work a fit for a business school (or this kind of department) rather than a disciplinary department?
+How would you describe your work to a scholar outside your subfield?
 
 ## Your research
 What is your most impactful research to date? Tell us a little about it.
@@ -47,6 +51,19 @@ Who is the audience for your work beyond academics?
 If you had an unlimited research budget and could use any method, what would you research and why?
 How do you incorporate social justice into your scholarship?
 Why do you want to move here when your research seems to depend on a different location?
+Tell us about your paper and your major findings. Why does this generalize?
+How are you learning to be a stronger theorist?
+Which literature does your paper speak to, and who in that literature would disagree with you?
+What is your theoretical contribution, as distinct from your empirical one?
+Why did you choose this method over the alternatives?
+Tell us about a time your data surprised you. What did you do?
+What happens to your research agenda if you lose access to your data or field site?
+What are the implications of your work for practitioners or policymakers?
+What is your next project after your dissertation, and how is it different from it?
+How much of your research is independent of your advisors?
+What is a point on which you disagree with your advisors?
+How do you think about research ethics, transparency, and reproducibility in your work?
+How do you use AI tools in your research process, and where do you draw the line?
 
 ## Publishing and productivity
 How do you plan to get your work published in top-tier journals? Besides submitting through the online portal.
@@ -62,7 +79,11 @@ How do you decide when to keep pushing a project and when to drop it?
 How do you keep up with the literature?
 What strategies would you use to make sure your research has impact?
 What is your 3 or 5 year plan?
-Why did it take you so long to complete your PhD?
+Tell us about the status of your projects and your planned trajectory toward publication for each.
+Have you applied for external funding? How do you plan to fund your research?
+What would you do if you discovered an error in one of your published papers?
+What would a successful first three years look like for you?
+How are you preparing for the tenure process?
 
 ## Collaboration and mentoring
 How is your work related to the research of others in the department? What are the possibilities for collaboration?
@@ -75,6 +96,8 @@ How would you mentor a doctoral student?
 What can you bring to the doctoral program that other professors cannot?
 We have a strong focus on an area adjacent to yours. How could you add to it?
 Which of our faculty would you want to talk to first, and why?
+How do you decide whether to take on a new coauthor or project?
+How do you give and receive critical feedback on a draft?
 
 ## Teaching
 What courses would you be prepared to teach?
@@ -93,6 +116,10 @@ How do you engage a student who has checked out?
 How would you prepare to teach a course outside your research area?
 You taught three classes and two preps. Why take on two preps when it costs research time?
 Are you more of a professor or a researcher?
+What is one thing you want every student to leave your course with?
+Describe a class session that went badly. What did you change?
+How would you teach students who disagree with your premises?
+How would your teaching differ for undergraduates, MBAs, and executives?
 
 ## Service, citizenship, and career
 What is your ratio between teaching, research, and service?
@@ -110,7 +137,10 @@ What is the accomplishment in your career that you are most proud of?
 Can you give an example of a time you took a leadership role in developing something new?
 Tell us about a time you went above and beyond.
 What work experience do you have that doesn't appear on your CV?
-You have seen our school's partners on our website. Who do you think we are missing?
+What service to the profession (reviewing, conferences, editorial work) do you plan to do?
+Where do you think our field will be in ten years?
+How do you manage your time and avoid burnout?
+What do you do when you're stuck on a project?
 
 ## Character
 What is your greatest strength and your greatest weakness?

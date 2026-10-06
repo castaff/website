@@ -1,75 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Academic job interview practice</title>
-<meta name="description" content="A random question generator with a timer for practicing academic job market interviews.">
-<style>
-  :root{
-    --bg:#f3f4f6; --ink:#1b1f27; --muted:#666c7b; --line:#d5d8df;
-    --accent:#a41034; --accent-ink:#ffffff;
-    --serif:"Iowan Old Style","Charter","Georgia",serif;
-    --sans:system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
-  }
-  @media (prefers-color-scheme:dark){
-    :root{ --bg:#16181d; --ink:#eceef2; --muted:#9aa1b0; --line:#2e323b; --accent:#e0506f; --accent-ink:#16181d; }
-  }
-  *{box-sizing:border-box}
-  html,body{height:100%}
-  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);display:flex;flex-direction:column;min-height:100%}
-  main{flex:1;display:flex;flex-direction:column;justify-content:center;max-width:52rem;width:100%;margin:0 auto;padding:2rem 1.5rem}
-  .intro{color:var(--muted);font-size:.95rem;margin:0 0 2rem;max-width:38rem;line-height:1.5}
-  .topic{color:var(--muted);font-size:.9rem;margin:0 0 .75rem;min-height:1.3em}
-  .question{font-family:var(--serif);font-size:clamp(1.6rem,4.2vw,2.6rem);line-height:1.3;margin:0 0 2.5rem;min-height:6.5em;font-weight:400;text-wrap:balance}
-  .question.empty{color:var(--muted)}
-  .bar{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin-bottom:1rem}
-  .fill{height:100%;width:100%;background:var(--accent);transform-origin:left}
-  .clock{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:1.5rem}
-  .time{font-family:var(--serif);font-size:clamp(3.5rem,11vw,6rem);line-height:1;font-variant-numeric:tabular-nums}
-  .time.over{color:var(--accent)}
-  .status{color:var(--muted);font-size:.95rem}
-  .controls{display:flex;flex-wrap:wrap;gap:.75rem;align-items:center}
-  button,select{font:inherit;color:var(--ink);background:transparent;border:1px solid var(--line);border-radius:6px;padding:.65rem 1rem;cursor:pointer}
-  button:hover,select:hover{border-color:var(--muted)}
-  button:focus-visible,select:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
-  button.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600;padding:.75rem 1.5rem}
-  button.primary:hover{filter:brightness(1.08)}
-  .row{display:flex;flex-wrap:wrap;gap:1rem;margin-top:1.25rem}
-  label{color:var(--muted);font-size:.9rem;display:flex;align-items:center;gap:.5rem}
-  footer{padding:1rem 1.5rem 1.5rem;color:var(--muted);font-size:.8rem;text-align:center;line-height:1.5}
-  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Interview practice | Celia Stafford</title>
+  <meta name="description" content="A random question generator with a timer for practicing academic job market interviews.">
+  <!-- Site-wide stylesheet and favicon, one level up. Relative paths so they resolve at any base URL. -->
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <style>
+    /* Layout only. Fonts, colors, and heading styles come from the site stylesheet. */
+    :root{ --accent:#a41034; --accent-ink:#fff; --display:inherit; --rule:color-mix(in srgb, currentColor 22%, transparent); }
+    .practice .lede{margin:0 0 1.25rem}
+    .topic{margin:0 0 .25rem;font-size:.9em;opacity:.7;min-height:1.3em}
+    .question{font-family:var(--display);font-size:clamp(1.35rem,3.4vw,1.9rem);line-height:1.3;font-weight:400;margin:0 0 1rem;min-height:3.9em;text-wrap:balance}
+    .question.empty{opacity:.6}
+    .clock{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:.4rem}
+    .time{font-family:var(--display);font-size:clamp(2.4rem,7vw,3.4rem);line-height:1;font-variant-numeric:tabular-nums}
+    .time.over{color:var(--accent)}
+    .status{font-size:.9em;opacity:.7}
+    .bar{height:4px;background:var(--rule);border-radius:2px;overflow:hidden;margin-bottom:1rem}
+    .fill{height:100%;width:100%;background:var(--accent);transform-origin:left}
+    .controls{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center}
+    .practice button,.practice select{font:inherit;font-size:.95em;color:inherit;background:transparent;border:1px solid var(--rule);border-radius:6px;padding:.5rem .85rem;cursor:pointer}
+    .practice button:hover,.practice select:hover{border-color:currentColor}
+    .practice button:focus-visible,.practice select:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+    .practice button.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600;padding:.55rem 1.25rem}
+    .practice button.primary:hover{filter:brightness(1.08)}
+    .practice label{display:flex;align-items:center;gap:.4rem;font-size:.9em;opacity:.85}
+    .practice .grow{flex:1}
+    .practice-foot{margin-top:1.25rem;font-size:.8em;opacity:.65;line-height:1.5}
+    @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+  </style>
 </head>
 <body>
-<main>
-  <p class="intro">Practice answering academic job market interview questions out loud. Each question starts a timer. Space for the next question, P to pause.</p>
-  <p class="topic" id="topic"></p>
-  <h1 class="question empty" id="q" aria-live="polite">Press Next question to begin.</h1>
-  <div class="clock">
-    <div class="time" id="time">0:30</div>
-    <div class="status" id="status"></div>
-  </div>
-  <div class="bar" aria-hidden="true"><div class="fill" id="fill"></div></div>
-  <div class="controls">
-    <button class="primary" id="next">Next question</button>
-    <button id="pause">Pause</button>
-    <button id="restart">Restart timer</button>
-  </div>
-  <div class="row">
-    <label>Topic <select id="cat"></select></label>
-    <label>Timer
-      <select id="len">
-        <option value="30" selected>30 sec</option>
-        <option value="60">1 min</option>
-        <option value="90">90 sec</option>
-        <option value="120">2 min</option>
-        <option value="180">3 min</option>
-      </select>
-    </label>
-  </div>
-</main>
-<footer id="foot"></footer>
+
+  <header class="site-nav">
+    <div class="nav-inner">
+      <a class="brand" href="../">Celia Stafford</a>
+      <a href="../#research">Research</a>
+      <a href="../#teaching">Teaching</a>
+      <a href="../#personal">Personal</a>
+      <a href="../cv/">CV</a>
+      <a href="./" aria-current="page">Interview practice</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap practice">
+      <section class="section">
+        <h2 class="page-title">Interview practice</h2>
+        <p class="lede">Practice answering academic job market questions out loud. Each question starts a timer. Space for the next question, P to pause. Built by <a href="../">Celia Stafford</a>.</p>
+
+        <p class="topic" id="topic"></p>
+        <h3 class="question empty" id="q" aria-live="polite">Press Next question to begin.</h3>
+
+        <div class="clock">
+          <div class="time" id="time">1:00</div>
+          <div class="status" id="status"></div>
+        </div>
+        <div class="bar" aria-hidden="true"><div class="fill" id="fill"></div></div>
+
+        <div class="controls">
+          <button class="primary" id="next">Next question</button>
+          <button id="pause">Pause</button>
+          <button id="restart">Restart</button>
+          <span class="grow"></span>
+          <label>Topic <select id="cat"></select></label>
+          <label>Timer
+            <select id="len">
+              <option value="30">30 sec</option>
+              <option value="60" selected>1 min</option>
+              <option value="90">90 sec</option>
+              <option value="120">2 min</option>
+              <option value="180">3 min</option>
+            </select>
+          </label>
+        </div>
+
+        <p class="practice-foot" id="foot"></p>
+      </section>
+    </div>
+  </main>
 
 <script>
 /* Fallback copy, used only if questions.txt cannot be loaded (e.g. file opened from disk).
@@ -146,6 +158,22 @@ const FALLBACK = [
  {
   "c": "About you and fit",
   "q": "What was the hardest part of the job market for you, and what did it teach you?"
+ },
+ {
+  "c": "About you and fit",
+  "q": "Which professional association division or subgroup (for example, within the Academy of Management) do you fit into best?"
+ },
+ {
+  "c": "About you and fit",
+  "q": "How did you get interested in the topic you are studying?"
+ },
+ {
+  "c": "About you and fit",
+  "q": "Why is your work a fit for a business school (or this kind of department) rather than a disciplinary department?"
+ },
+ {
+  "c": "About you and fit",
+  "q": "How would you describe your work to a scholar outside your subfield?"
  },
  {
   "c": "Your research",
@@ -236,6 +264,58 @@ const FALLBACK = [
   "q": "Why do you want to move here when your research seems to depend on a different location?"
  },
  {
+  "c": "Your research",
+  "q": "Tell us about your paper and your major findings. Why does this generalize?"
+ },
+ {
+  "c": "Your research",
+  "q": "How are you learning to be a stronger theorist?"
+ },
+ {
+  "c": "Your research",
+  "q": "Which literature does your paper speak to, and who in that literature would disagree with you?"
+ },
+ {
+  "c": "Your research",
+  "q": "What is your theoretical contribution, as distinct from your empirical one?"
+ },
+ {
+  "c": "Your research",
+  "q": "Why did you choose this method over the alternatives?"
+ },
+ {
+  "c": "Your research",
+  "q": "Tell us about a time your data surprised you. What did you do?"
+ },
+ {
+  "c": "Your research",
+  "q": "What happens to your research agenda if you lose access to your data or field site?"
+ },
+ {
+  "c": "Your research",
+  "q": "What are the implications of your work for practitioners or policymakers?"
+ },
+ {
+  "c": "Your research",
+  "q": "What is your next project after your dissertation, and how is it different from it?"
+ },
+ {
+  "c": "Your research",
+  "q": "How much of your research is independent of your advisors?"
+ },
+ {
+  "c": "Your research",
+  "q": "What is a point on which you disagree with your advisors?"
+ },
+ {
+  "c": "Your research",
+  "q": "How do you think about research ethics, transparency, and reproducibility in your work?"
+ },
+ {
+  "c": "Your research",
+  "q": "How do you use AI tools in your research process, and where do you draw the line?"
+ },
+ {
   "c": "Publishing and productivity",
   "q": "How do you plan to get your work published in top-tier journals? Besides submitting through the online portal."
  },
@@ -289,7 +369,23 @@ const FALLBACK = [
  },
  {
   "c": "Publishing and productivity",
-  "q": "Why did it take you so long to complete your PhD?"
+  "q": "Tell us about the status of your projects and your planned trajectory toward publication for each."
+ },
+ {
+  "c": "Publishing and productivity",
+  "q": "Have you applied for external funding? How do you plan to fund your research?"
+ },
+ {
+  "c": "Publishing and productivity",
+  "q": "What would you do if you discovered an error in one of your published papers?"
+ },
+ {
+  "c": "Publishing and productivity",
+  "q": "What would a successful first three years look like for you?"
+ },
+ {
+  "c": "Publishing and productivity",
+  "q": "How are you preparing for the tenure process?"
  },
  {
   "c": "Collaboration and mentoring",
@@ -330,6 +426,14 @@ const FALLBACK = [
  {
   "c": "Collaboration and mentoring",
   "q": "Which of our faculty would you want to talk to first, and why?"
+ },
+ {
+  "c": "Collaboration and mentoring",
+  "q": "How do you decide whether to take on a new coauthor or project?"
+ },
+ {
+  "c": "Collaboration and mentoring",
+  "q": "How do you give and receive critical feedback on a draft?"
  },
  {
   "c": "Teaching",
@@ -396,6 +500,22 @@ const FALLBACK = [
   "q": "Are you more of a professor or a researcher?"
  },
  {
+  "c": "Teaching",
+  "q": "What is one thing you want every student to leave your course with?"
+ },
+ {
+  "c": "Teaching",
+  "q": "Describe a class session that went badly. What did you change?"
+ },
+ {
+  "c": "Teaching",
+  "q": "How would you teach students who disagree with your premises?"
+ },
+ {
+  "c": "Teaching",
+  "q": "How would your teaching differ for undergraduates, MBAs, and executives?"
+ },
+ {
   "c": "Service, citizenship, and career",
   "q": "What is your ratio between teaching, research, and service?"
  },
@@ -457,7 +577,19 @@ const FALLBACK = [
  },
  {
   "c": "Service, citizenship, and career",
-  "q": "You have seen our school's partners on our website. Who do you think we are missing?"
+  "q": "What service to the profession (reviewing, conferences, editorial work) do you plan to do?"
+ },
+ {
+  "c": "Service, citizenship, and career",
+  "q": "Where do you think our field will be in ten years?"
+ },
+ {
+  "c": "Service, citizenship, and career",
+  "q": "How do you manage your time and avoid burnout?"
+ },
+ {
+  "c": "Service, citizenship, and career",
+  "q": "What do you do when you're stuck on a project?"
  },
  {
   "c": "Character",
@@ -486,8 +618,21 @@ const FALLBACK = [
 ];
 
 const $ = id => document.getElementById(id);
-let all = [], deck = [], seen = 0, source = '';
-let total = 30, left = 30, running = false, timer = null, endAt = 0, started = false;
+let all = [], deck = [], seen = 0;
+let total = 60, left = 60, running = false, timer = null, endAt = 0, started = false;
+
+/* Borrow heading font and link color from the site stylesheet so this page stays in sync with it. */
+function themeFromSite(){
+  const root = document.documentElement;
+  const h = document.querySelector('.page-title');
+  if (h) root.style.setProperty('--display', getComputedStyle(h).fontFamily);
+  const a = document.querySelector('.lede a');
+  if (a) root.style.setProperty('--accent', getComputedStyle(a).color);
+  const bg = getComputedStyle(document.body).backgroundColor;
+  root.style.setProperty('--accent-ink', (!bg || bg === 'transparent' || bg === 'rgba(0, 0, 0, 0)') ? '#fff' : bg);
+}
+themeFromSite();
+window.addEventListener('load', themeFromSite);
 
 function parse(text){
   const out = []; let cat = 'General';
@@ -519,13 +664,13 @@ async function load(){
     if (!r.ok) throw new Error(r.status);
     const qs = parse(await r.text());
     if (!qs.length) throw new Error('empty');
-    all = qs; source = 'questions.txt';
-  } catch (e) { all = FALLBACK.slice(); source = 'built-in list'; }
+    all = qs;
+  } catch (e) { all = FALLBACK.slice(); }
   buildTopics(); buildDeck(); foot();
 }
 function foot(){
   const n = pool().length;
-  $('foot').innerHTML = (started ? 'Question ' + seen + ' of ' + n + ' this round. ' : n + ' questions. ') +
+  $('foot').textContent = (started ? 'Question ' + seen + ' of ' + n + ' this round. ' : n + ' questions. ') +
     'Crowdsourced from candidate reports; not affiliated with or endorsed by any school.';
 }
 function fmt(s){ s = Math.max(0, Math.ceil(s)); return Math.floor(s/60) + ':' + String(s % 60).padStart(2,'0'); }
